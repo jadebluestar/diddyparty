@@ -72,43 +72,57 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-          <h1 className="text-3xl font-bold text-center text-black mb-8">
-            Resume → Portfolio Converter
-          </h1>
+        <div className="bg-white rounded-2xl shadow-2xl p-8 border border-blue-100 backdrop-blur-lg bg-opacity-95">
+          <div className="text-center mb-8">
+            <div className="inline-block p-3 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full mb-4">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+              Resume → Portfolio Converter
+            </h1>
+            <p className="text-blue-500 text-sm font-medium">Transform your resume into a stunning portfolio website</p>
+          </div>
 
           <div className="space-y-6">
             {/* File Upload */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Upload Resume
+              <label className="block text-sm font-semibold text-blue-700 mb-3">
+                Upload Your Resume
               </label>
-              <input
-                type="file"
-                accept=".pdf,.docx"
-                onChange={handleFileChange}
-                className="block w-full text-sm text-gray-500
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-md file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-gray-100 file:text-gray-700
-                  hover:file:bg-gray-200
-                  cursor-pointer"
-                disabled={loading}
-              />
+              <div className="relative group">
+                <input
+                  type="file"
+                  accept=".pdf,.docx"
+                  onChange={handleFileChange}
+                  className="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-lg file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-gradient-to-r file:from-blue-500 file:to-blue-600 file:text-white
+                    hover:file:from-blue-600 hover:file:to-blue-700
+                    cursor-pointer border-2 border-dashed border-blue-200 rounded-lg p-3
+                    hover:border-blue-400 transition-colors"
+                  disabled={loading}
+                />
+              </div>
               {file && (
-                <p className="mt-2 text-sm text-gray-600">
-                  Selected: {file.name}
+                <p className="mt-3 text-sm font-medium text-blue-600 bg-blue-50 p-2 rounded-lg">
+                  ✓ Selected: {file.name}
                 </p>
               )}
             </div>
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
-                {error}
+              <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg text-sm shadow-sm flex items-start gap-3">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span>{error}</span>
               </div>
             )}
 
@@ -116,9 +130,9 @@ function App() {
             <button
               onClick={handleGenerate}
               disabled={!file || loading}
-              className="w-full bg-black text-white py-3 px-4 rounded-md font-medium
-                hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed
-                transition-colors duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg font-semibold
+                hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed
+                transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-none"
             >
               {loading ? (
                 <>
@@ -153,47 +167,56 @@ function App() {
             {downloadUrl && (
               <button
                 onClick={handleDownload}
-                className="w-full bg-gray-800 text-white py-3 px-4 rounded-md font-medium
-                  hover:bg-gray-700 transition-colors duration-200"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold
+                  hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
               >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
                 Download Portfolio
               </button>
             )}
 
             {/* Hosting Instructions */}
             {showHostingMessage && (
-              <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-md text-sm">
-                <p className="font-medium mb-1">Portfolio Generated Successfully!</p>
-                <p>
-                  Upload the extracted <code className="bg-blue-100 px-1 rounded">portfolio</code> folder to{' '}
-                  <a
-                    href="https://pages.github.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-900"
-                  >
-                    GitHub Pages
-                  </a>
-                  ,{' '}
-                  <a
-                    href="https://www.netlify.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-900"
-                  >
-                    Netlify
-                  </a>
-                  , or{' '}
-                  <a
-                    href="https://vercel.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-blue-900"
-                  >
-                    Vercel
-                  </a>{' '}
-                  to host your portfolio.
-                </p>
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 px-4 py-4 rounded-lg text-blue-900 text-sm shadow-md">
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <div>
+                    <p className="font-bold mb-2">✨ Portfolio Generated Successfully!</p>
+                    <p className="text-blue-800 leading-relaxed">
+                      Extract and upload the <code className="bg-white bg-opacity-60 px-2 py-1 rounded font-mono text-blue-700">portfolio</code> folder to{' '}
+                      <a
+                        href="https://pages.github.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold hover:text-blue-700 transition-colors underline underline-offset-2"
+                      >
+                        GitHub Pages
+                      </a>
+                      , <a
+                        href="https://www.netlify.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold hover:text-blue-700 transition-colors underline underline-offset-2"
+                      >
+                        Netlify
+                      </a>
+                      , or{' '}
+                      <a
+                        href="https://vercel.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold hover:text-blue-700 transition-colors underline underline-offset-2"
+                      >
+                        Vercel
+                      </a>
+                      {' '}to launch your portfolio online.
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
